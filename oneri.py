@@ -1,8 +1,13 @@
 import streamlit as st
 import datetime
+import sqlite3
 
-# Kullanıcının fikrini, adını ve giriş zamanını kaydetmek için bir liste oluşturuyoruz.
-ideas = []
+# Veritabanı bağlantısını açıyoruz.
+conn = sqlite3.connect('ideas.db')
+c = conn.cursor()
+
+# İdealar tablosunu oluşturuyoruz.
+c.execute('CREATE TABLE IF NOT EXISTS ideas (idea TEXT, name TEXT, timestamp TEXT)')
 
 # Streamlit uygulamasını başlatıyoruz.
 st.title("Öneri Kaydedici")
@@ -17,7 +22,9 @@ name = st.text_input("Adınızı buraya yazın:")
 if st.button("Kaydet"):
     if idea and name:
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        ideas.append((idea, name, timestamp))
+        # Veritabanına kaydediyoruz.
+        c.execute('INSERT INTO ideas (idea, name, timestamp) VALUES (?, ?, ?)', (idea, name, timestamp))
+        conn.commit()
         st.success("Fikir başarıyla kaydedildi!")
     else:
         st.warning("Lütfen fikir ve ad alanlarını doldurun.")
@@ -25,8 +32,14 @@ if st.button("Kaydet"):
 # Şimdi, kaydedilmiş fikirleri ekrana yazdırıyoruz.
 st.write("\n\n")
 st.header("Kaydedilmiş Fikirler")
+c.execute('SELECT * FROM ideas')
+ideas = c.fetchall()
 if not ideas:
     st.write("Henüz kaydedilmiş bir fikir yok.")
 else:
     for i, (idea, name, timestamp) in enumerate(ideas):
         st.write(f"{i+1}. **{idea}** - {name} ({timestamp})")
+
+# Veritabanı bağlantısını kapatıyoruz.
+c.close()
+conn.close()
