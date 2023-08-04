@@ -75,8 +75,6 @@ def main():
             file_name=export_filename,
             mime='text/csv',
         )
-        
-        st.dataframe(export)
 
 if __name__ == "__main__":
     main()
