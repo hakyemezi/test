@@ -68,15 +68,15 @@ def main():
         export.to_csv(f'{export_filename}', index=False, header=False)
 
         st.success("Ready.")
-
-        st.dataframe(export)
-        
+       
         st.download_button(
             label="Download",
             data=export.to_csv(index=False, header=False, sep=";").encode('utf-8'),
             file_name=export_filename,
             mime='text/csv',
         )
+        
+        st.dataframe(export)
 
 if __name__ == "__main__":
     main()
