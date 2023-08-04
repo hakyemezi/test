@@ -42,7 +42,7 @@ def main():
         formatted_date_2 = current_date.strftime("%d.%m.%Y")
         formatted_date_3 = current_date.strftime("%Y%m%d")
         fund_list = ['GPA', 'TPL', 'IJT', 'TGE', 'AFA', 'AFS', 'AFT', 'KLU', 'TCA',
-                     'TGE', 'AES', 'TPC', 'DLY', 'DCB', 'DTL', 'DBH', 'TUA', 'DPK',
+                     'AES', 'TPC', 'DLY', 'DCB', 'DTL', 'DBH', 'TUA', 'DPK',
                      'TCF', 'TJI', 'TRR', 'PUR', 'FSK', 'PPZ', 'NRG', 'TE4', 'TE3',
                      'DYN', 'DVT', 'DLD']
 
