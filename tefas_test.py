@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 import pandas as pd
 from datetime import datetime
-
+from bs4 import BeautifulSoup
 
 def isportfoy():
     is_portfoy_fund_list = ['IAG', 'IYG', 'ISZ']
