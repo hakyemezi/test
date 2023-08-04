@@ -35,15 +35,12 @@ def fund_price(fund_code, start_date, end_date, type="YAT"):
         return None
 
 def main():
-    st.title("Fon Fiyatları Çekme Uygulaması")
-
-    if st.button("Fon Fiyatlarını Çek"):
+   
+    if st.button("Start"):
         current_date = datetime.now().date()
-
         formatted_date_1 = current_date.strftime("%d/%m/%Y")
         formatted_date_2 = current_date.strftime("%d.%m.%Y")
         formatted_date_3 = current_date.strftime("%Y%m%d")
-
         fund_list = ['GPA', 'TPL', 'IJT', 'TGE', 'AFA', 'AFS', 'AFT', 'KLU', 'TCA',
                      'TGE', 'AES', 'TPC', 'DLY', 'DCB', 'DTL', 'DBH', 'TUA', 'DPK',
                      'TCF', 'TJI', 'TRR', 'PUR', 'FSK', 'PPZ', 'NRG', 'TE4', 'TE3',
@@ -70,10 +67,12 @@ def main():
 
         export.to_csv(f'{export_filename}', index=False, header=False)
 
-        st.success("Fon fiyatları başarıyla çekildi")
+        st.success("Ready.")
 
+        st.dataframe(export)
+        
         st.download_button(
-            label="Dosyayı İndir",
+            label="Download",
             data=export.to_csv(index=False, header=False, sep=";").encode('utf-8'),
             file_name=export_filename,
             mime='text/csv',
